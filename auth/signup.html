@@ -1,0 +1,22 @@
+<!-- Sign-up form — fetched by script.js and injected into #authFormContainer -->
+<form class="auth-form" id="signupForm" data-auth-panel="signup">
+  <h3 data-i18n="auth_signup_title">Create your account</h3>
+  <label class="field">
+    <span data-i18n="field_name">Name</span>
+    <input type="text" id="signupName" autocomplete="name" required>
+  </label>
+  <label class="field">
+    <span data-i18n="field_email">Email</span>
+    <input type="email" id="signupEmail" autocomplete="email" required>
+  </label>
+  <label class="field">
+    <span data-i18n="field_password">Password</span>
+    <input type="password" id="signupPassword" autocomplete="new-password" required>
+  </label>
+  <label class="field">
+    <span data-i18n="field_confirm_password">Confirm Password</span>
+    <input type="password" id="signupConfirm" autocomplete="new-password" required>
+  </label>
+  <p class="field-error" id="signupError" hidden></p>
+  <button type="submit" class="auth-submit" data-i18n="auth_signup_submit">Create Account</button>
+</form>

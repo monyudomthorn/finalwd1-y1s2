@@ -1,0 +1,15 @@
+<!-- Login form — fetched by script.js and injected into #authFormContainer -->
+<form class="auth-form" id="loginForm" data-auth-panel="login">
+  <h3 data-i18n="auth_login_title">Welcome back</h3>
+  <label class="field">
+    <span data-i18n="field_email">Email</span>
+    <input type="email" id="loginEmail" autocomplete="email" required>
+  </label>
+  <label class="field">
+    <span data-i18n="field_password">Password</span>
+    <input type="password" id="loginPassword" autocomplete="current-password" required>
+  </label>
+  <p class="field-error" id="loginError" hidden></p>
+  <button type="submit" class="auth-submit" data-i18n="auth_login_submit">Log In</button>
+  <button type="button" class="auth-link" data-auth-view="forgot" data-i18n="auth_forgot_link">Forgot password?</button>
+</form>
