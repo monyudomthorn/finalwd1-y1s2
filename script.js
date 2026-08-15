@@ -88,7 +88,7 @@ const translations = {
     account_hi: (name) => `សួស្តី ${name}`,
     hero_eyebrow: "ពោរពេញដោយអត្តសញ្ញាណ និងវប្បធម៌ភ្នំពេញ",
     hero_title_1: "Arom fist",
-    hero_title_km: "ក្លិនក្រអូបជាមុន។",
+    hero_title_km: "អារម្មណ៍ដំបូង",
     hero_sub: "កាហ្វេ តែ និងភេសជ្ជៈខ្មែរធ្វើតាមរបៀបចាស់បុរាណ ដុតនំតាមរបៀបដែលជីដូនយើងបានបង្រៀន បម្រើតាមរបៀបទីក្រុងទំនើប។",
     hero_cta: "មើលមឺនុយ",
     menu_title: "ម៉ីនុយ",
@@ -742,7 +742,7 @@ function closeDrawer() {
 const authFileMap = {
   login: "auth/login.html",
   signup: "auth/signup.html",
-  forgot: "auth/forgot-password.html",
+  forgot: "auth/forgotpassword.html",
 };
 
 async function loadAuthForm(view) {
