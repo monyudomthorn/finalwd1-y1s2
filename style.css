@@ -15,7 +15,7 @@
 
   --font-display: "Fraunces", serif;
   --font-body: "Work Sans", sans-serif;
-  --font-km: "Bokor", "Noto Serif Khmer", serif;
+  --font-km: "Noto Serif Khmer","Bokor",  serif;
 
   --radius: 14px;
   --shadow: 0 12px 30px -14px rgba(36, 24, 17, 0.35);
