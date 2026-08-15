@@ -7,7 +7,7 @@
   <title>ARÔM — អារម្មណ៍ | Khmer Coffee &amp; Tea House</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
-    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&family=Noto+Serif+Khmer:wght@400;600;700&family=Battambang:wght@400;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&family=Bokor&family=Noto+Serif+Khmer:wght@400;600;700&family=Battambang:wght@400;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -259,6 +259,83 @@
           </svg>
         </button>
       </div>
+    </div>
+  </div>
+
+  <!-- ===== Invoice Modal ===== -->
+  <div class="modal-overlay" id="invoiceOverlay"></div>
+  <div class="invoice-modal" id="invoiceModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="invoice-modal-toolbar">
+      <button class="invoice-lang-toggle" id="invoiceLangToggle" aria-label="Invoice language">
+        <span class="invoice-lang-opt is-active" data-lang="en">EN</span>
+        <span class="lang-div">/</span>
+        <span class="invoice-lang-opt" data-lang="km">ខ្មែរ</span>
+      </button>
+      <button class="drawer-close modal-close" id="invoiceClose" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 5l14 14M19 5L5 19" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="invoice-sheet" id="invoiceSheet">
+      <div class="invoice-brand">
+        <span class="logo-en">ARÔM</span> <span class="logo-km">អារម្មណ៍</span>
+        <p class="invoice-tagline" data-i18n="invoice_shop_tagline">Khmer Coffee &amp; Tea House</p>
+      </div>
+
+      <h3 class="invoice-heading" data-i18n="invoice_title">Invoice</h3>
+
+      <div class="invoice-meta">
+        <div class="invoice-meta-row">
+          <span data-i18n="invoice_number">Invoice No.</span>
+          <span id="invoiceNumber">—</span>
+        </div>
+        <div class="invoice-meta-row">
+          <span data-i18n="invoice_date">Date</span>
+          <span id="invoiceDate">—</span>
+        </div>
+        <div class="invoice-meta-row">
+          <span data-i18n="invoice_customer">Billed to</span>
+          <span id="invoiceCustomer">—</span>
+        </div>
+      </div>
+
+      <table class="invoice-table">
+        <thead>
+          <tr>
+            <th id="invoiceColItem" data-i18n="invoice_col_item">Item</th>
+            <th id="invoiceColQty" data-i18n="invoice_col_qty">Qty</th>
+            <th id="invoiceColPrice" data-i18n="invoice_col_price">Price</th>
+            <th id="invoiceColSubtotal" data-i18n="invoice_col_subtotal">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody id="invoiceItemsBody"></tbody>
+      </table>
+
+      <div class="invoice-summary">
+        <div class="invoice-summary-row">
+          <span data-i18n="invoice_subtotal">Subtotal</span>
+          <span id="invoiceSubtotal">$0.00</span>
+        </div>
+        <div class="invoice-summary-row">
+          <span data-i18n="invoice_vat">VAT (10%)</span>
+          <span id="invoiceVat">$0.00</span>
+        </div>
+        <div class="invoice-summary-row invoice-summary-total">
+          <span data-i18n="invoice_total">Total Due</span>
+          <span id="invoiceTotal">$0.00</span>
+        </div>
+      </div>
+
+      <p class="invoice-thanks" data-i18n="invoice_thank_you">Thank you for your order!</p>
+      <p class="invoice-footer-note" data-i18n="invoice_footer_note">ARÔM · Phnom Penh, Cambodia </p>
+    </div>
+
+    <div class="invoice-actions">
+      <button class="invoice-btn invoice-btn-ghost" id="invoicePrintBtn" data-i18n="invoice_print">Print</button>
+      <button class="invoice-btn invoice-btn-primary" id="invoiceConfirmBtn" data-i18n="invoice_confirm">Confirm
+        &amp; Place Order</button>
     </div>
   </div>
 

@@ -77,6 +77,27 @@ const translations = {
     auth_success_login: (name) => `Welcome back, ${name}.`,
     auth_success_forgot: "If that email is registered, a reset link is on its way.",
     auth_success_logout: "You've been logged out.",
+
+    invoice_title: "Invoice",
+    invoice_shop_tagline: "Khmer Coffee & Tea House",
+    invoice_number: "Invoice No.",
+    invoice_date: "Date",
+    invoice_customer: "Billed to",
+    invoice_guest: "Guest customer",
+    invoice_col_item: "Item",
+    invoice_col_qty: "Qty",
+    invoice_col_price: "Price",
+    invoice_col_subtotal: "Subtotal",
+    invoice_subtotal: "Subtotal",
+    invoice_vat: "VAT (10%)",
+    invoice_total: "Total Price",
+    invoice_thank_you: "Thank you for your order!",
+    invoice_footer_note: "ARÔM · Phnom Penh, Cambodia ",
+    invoice_print: "Print",
+    invoice_confirm: "Confirm & Place Order",
+    invoice_close: "Close",
+    invoice_empty: "Your cart is empty — add something before checking out.",
+    toast_order_placed: "Order placed — thank you!",
   },
   km: {
     nav_all: "ភេសជ្ជៈទាំងអស់",
@@ -155,6 +176,27 @@ const translations = {
     auth_success_login: (name) => `សូមស្វាគមន៍ការត្រឡប់មកវិញ ${name}។`,
     auth_success_forgot: "ប្រសិនបើអ៊ីមែលនោះបានចុះឈ្មោះ តំណភ្ជាប់កំណត់ឡើងវិញកំពុងផ្ញើទៅ។",
     auth_success_logout: "អ្នកបានចាកចេញរួចរាល់។",
+
+    invoice_title: "វិក្កយបត្រ",
+    invoice_shop_tagline: "កាហ្វេ និងតែខ្មែរ",
+    invoice_number: "លេខវិក្កយបត្រ",
+    invoice_date: "កាលបរិច្ឆេទ",
+    invoice_customer: "អតិថិជន",
+    invoice_guest: "អតិថិជនភ្ញៀវ",
+    invoice_col_item: "មុខម្ហូប",
+    invoice_col_qty: "ចំនួន",
+    invoice_col_price: "តម្លៃ",
+    invoice_col_subtotal: "តម្លៃសរុប",
+    invoice_subtotal: "តម្លៃសរុប",
+    invoice_vat: "អាករលើតម្លៃបន្ថែម (១០%)",
+    invoice_total: "តម្លៃសរុបត្រូវបង់",
+    invoice_thank_you: "សូមអរគុណសម្រាប់ការកម្មង់!",
+    invoice_footer_note: "អារ៉ូម៉ · ភ្នំពេញ កម្ពុជា ",
+    invoice_print: "បោះពុម្ព",
+    invoice_confirm: "បញ្ជាក់ និងកម្មង់",
+    invoice_close: "បិទ",
+    invoice_empty: "កន្ត្រករបស់អ្នកទទេ — សូមបន្ថែមអ្វីមួយមុននឹងបង់ប្រាក់។",
+    toast_order_placed: "បានកម្មង់ដោយជោគជ័យ — សូមអរគុណ!",
   }
 };
 
@@ -416,6 +458,8 @@ let state = {
   cart: {},         // id -> qty
   favorites: new Set(),
   currentUser: null, // { name, email } | null
+  invoiceLang: "en", // language shown inside the invoice modal (independent of site lang)
+  invoice: null,      // snapshot generated at checkout: { number, date, items }
 };
 
 // Demo-only in-memory "database" of registered users. Resets on reload.
@@ -471,9 +515,36 @@ const viewQtyInc = document.getElementById("viewQtyInc");
 const viewAddBtn = document.getElementById("viewAddBtn");
 const viewFavBtn = document.getElementById("viewFavBtn");
 
+const invoiceOverlay = document.getElementById("invoiceOverlay");
+const invoiceModal = document.getElementById("invoiceModal");
+const invoiceClose = document.getElementById("invoiceClose");
+const invoiceLangToggle = document.getElementById("invoiceLangToggle");
+const invoiceNumberEl = document.getElementById("invoiceNumber");
+const invoiceDateEl = document.getElementById("invoiceDate");
+const invoiceCustomerEl = document.getElementById("invoiceCustomer");
+const invoiceSheetEl = document.getElementById("invoiceSheet");
+const invoiceItemsBody = document.getElementById("invoiceItemsBody");
+const invoiceColItem = document.getElementById("invoiceColItem");
+const invoiceColQty = document.getElementById("invoiceColQty");
+const invoiceColPrice = document.getElementById("invoiceColPrice");
+const invoiceColSubtotal = document.getElementById("invoiceColSubtotal");
+const invoiceSubtotalEl = document.getElementById("invoiceSubtotal");
+const invoiceVatEl = document.getElementById("invoiceVat");
+const invoiceTotalEl = document.getElementById("invoiceTotal");
+const invoicePrintBtn = document.getElementById("invoicePrintBtn");
+const invoiceConfirmBtn = document.getElementById("invoiceConfirmBtn");
+
 /* ===================== i18n helpers ===================== */
 function t(key, ...args) {
   const entry = translations[state.lang][key];
+  return typeof entry === "function" ? entry(...args) : entry;
+}
+
+// Same as t(), but reads from the invoice's own language toggle instead of
+// the site-wide language, so the invoice can be viewed in EN or KM
+// independently of whatever language the rest of the page is in.
+function ti(key, ...args) {
+  const entry = translations[state.invoiceLang][key];
   return typeof entry === "function" ? entry(...args) : entry;
 }
 
@@ -891,13 +962,175 @@ function closeViewModal() {
   viewModal.setAttribute("aria-hidden", "true");
 }
 
+/* ----- Invoice modal ----- */
+const VAT_RATE = 0.10; // 10% VAT, standard rate in Cambodia
+
+function generateInvoiceNumber() {
+  const now = new Date();
+  const y = now.getFullYear();
+  const m = String(now.getMonth() + 1).padStart(2, "0");
+  const d = String(now.getDate()).padStart(2, "0");
+  const rand = String(Math.floor(1000 + Math.random() * 9000));
+  return `ARM-${y}${m}${d}-${rand}`;
+}
+
+function formatInvoiceDate(date, lang) {
+  return date.toLocaleString(lang === "km" ? "km-KH" : "en-US", {
+    year: "numeric", month: "short", day: "numeric",
+    hour: "2-digit", minute: "2-digit",
+  });
+}
+
+function buildInvoiceSnapshot() {
+  const entries = Object.entries(state.cart).filter(([, qty]) => qty > 0);
+  const items = entries.map(([id, qty]) => {
+    const p = products.find((x) => x.id === id);
+    return { id, name: p.name, price: p.price, qty, lineTotal: p.price * qty };
+  });
+  const subtotal = items.reduce((sum, item) => sum + item.lineTotal, 0);
+  const vat = subtotal * VAT_RATE;
+  return {
+    number: generateInvoiceNumber(),
+    date: new Date(),
+    items,
+    subtotal,
+    vat,
+    total: subtotal + vat,
+  };
+}
+
+function renderInvoice() {
+  if (!state.invoice) return;
+  const inv = state.invoice;
+
+  document.querySelectorAll(".invoice-lang-opt").forEach((el) => {
+    el.classList.toggle("is-active", el.dataset.lang === state.invoiceLang);
+  });
+
+  document.querySelectorAll("#invoiceModal [data-i18n]").forEach((el) => {
+    const key = el.getAttribute("data-i18n");
+    if (translations[state.invoiceLang][key] !== undefined) {
+      el.textContent = ti(key);
+    }
+  });
+
+  invoiceNumberEl.textContent = inv.number;
+  invoiceDateEl.textContent = formatInvoiceDate(inv.date, state.invoiceLang);
+  invoiceCustomerEl.textContent = state.currentUser
+    ? `${state.currentUser.name}`
+    : ti("invoice_guest");
+
+  invoiceItemsBody.innerHTML = inv.items.map((item) => {
+    const name = state.invoiceLang === "en" ? item.name.en : item.name.km;
+    return `
+      <tr>
+        <td class="invoice-cell-item">${name}</td>
+        <td class="invoice-cell-qty">${item.qty}</td>
+        <td class="invoice-cell-price">${formatPrice(item.price)}</td>
+        <td class="invoice-cell-subtotal">${formatPrice(item.lineTotal)}</td>
+      </tr>`;
+  }).join("");
+
+  invoiceSubtotalEl.textContent = formatPrice(inv.subtotal);
+  invoiceVatEl.textContent = formatPrice(inv.vat);
+  invoiceTotalEl.textContent = formatPrice(inv.total);
+}
+
+function openInvoiceModal() {
+  if (totalCartQty() === 0) {
+    showToast(t("invoice_empty"));
+    return;
+  }
+  state.invoiceLang = state.lang;
+  state.invoice = buildInvoiceSnapshot();
+  renderInvoice();
+  closeDrawer();
+  invoiceOverlay.classList.add("is-open");
+  invoiceModal.classList.add("is-open");
+  invoiceModal.setAttribute("aria-hidden", "false");
+}
+
+function closeInvoiceModal() {
+  invoiceOverlay.classList.remove("is-open");
+  invoiceModal.classList.remove("is-open");
+  invoiceModal.setAttribute("aria-hidden", "true");
+}
+
+function printInvoice() {
+  if (!invoiceSheetEl) return;
+
+  const printWindow = window.open("", "_blank", "width=650,height=800");
+  if (!printWindow) {
+    // Pop-up blocked — fall back to printing the current page.
+    window.print();
+    return;
+  }
+
+  const dir = state.invoiceLang === "km" ? "km" : "en";
+  const title = state.invoice ? state.invoice.number : "Invoice";
+
+  // Everything below is inlined in a single <style> tag (no external
+  // stylesheet or font link) so there's nothing to fetch and nothing to wait
+  // on — the window can be printed immediately after it's written.
+  printWindow.document.write(`<!DOCTYPE html>
+<html lang="${dir}">
+<head>
+<meta charset="UTF-8">
+<title>${title} — ARÔM</title>
+<style>
+  body { margin: 0; padding: 30px; font-family: Georgia, "Times New Roman", serif; color: #2a1e16; }
+  .invoice-brand { text-align: center; margin-bottom: 6px; }
+  .invoice-brand .logo-en { font-size: 1.3rem; font-weight: 700; }
+  .invoice-brand .logo-km { color: #6b5c4c; margin-left: 6px; }
+  .invoice-tagline { margin: 2px 0 0; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; color: #6b5c4c; }
+  .invoice-heading { text-align: center; font-size: 1.15rem; font-weight: 700; color: #b5563c; margin: 14px 0 18px; padding-top: 14px; border-top: 1px dashed #ddd; }
+  .invoice-meta { font-size: .86rem; margin-bottom: 18px; }
+  .invoice-meta-row { display: flex; justify-content: space-between; gap: 12px; color: #6b5c4c; padding: 2px 0; }
+  .invoice-meta-row span:last-child { color: #2a1e16; font-weight: 700; text-align: right; }
+  .invoice-table { width: 100%; border-collapse: collapse; font-size: .86rem; margin-bottom: 16px; }
+  .invoice-table th { text-align: left; font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: #6b5c4c; border-bottom: 1px solid #ccc; padding: 0 4px 8px; }
+  .invoice-table th:not(:first-child), .invoice-table td:not(:first-child) { text-align: right; }
+  .invoice-table td { padding: 8px 4px; border-bottom: 1px solid #eee; }
+  .invoice-summary { margin-left: auto; width: 60%; min-width: 200px; font-size: .88rem; margin-bottom: 18px; }
+  .invoice-summary-row { display: flex; justify-content: space-between; color: #6b5c4c; padding: 2px 0; }
+  .invoice-summary-total { border-top: 1px solid #ccc; margin-top: 4px; padding-top: 8px; font-size: 1.1rem; font-weight: 700; color: #b5563c; }
+  .invoice-thanks { text-align: center; font-size: 1rem; font-weight: 700; margin: 0 0 4px; }
+  .invoice-footer-note { text-align: center; font-size: .74rem; color: #6b5c4c; margin: 0; }
+  @page { margin: 16mm; }
+</style>
+</head>
+<body>${invoiceSheetEl.innerHTML}</body>
+</html>`);
+  printWindow.document.close();
+  printWindow.focus();
+  printWindow.print();
+}
+
 /* ===================== Event wiring ===================== */
 document.getElementById("cartBtn").addEventListener("click", openDrawer);
 document.getElementById("drawerClose").addEventListener("click", closeDrawer);
 drawerOverlay.addEventListener("click", closeDrawer);
 
-document.getElementById("checkoutBtn").addEventListener("click", () => {
-  showToast(t("toast_checkout"));
+document.getElementById("checkoutBtn").addEventListener("click", openInvoiceModal);
+
+invoiceClose.addEventListener("click", closeInvoiceModal);
+invoiceOverlay.addEventListener("click", closeInvoiceModal);
+
+invoiceLangToggle.addEventListener("click", (e) => {
+  const opt = e.target.closest(".invoice-lang-opt");
+  if (!opt) return;
+  state.invoiceLang = opt.dataset.lang;
+  renderInvoice();
+});
+
+invoicePrintBtn.addEventListener("click", printInvoice);
+
+invoiceConfirmBtn.addEventListener("click", () => {
+  state.cart = {};
+  state.invoice = null;
+  closeInvoiceModal();
+  showToast(t("toast_order_placed"));
+  renderAll();
 });
 
 document.querySelectorAll(".nav-tab").forEach((btn) => {
