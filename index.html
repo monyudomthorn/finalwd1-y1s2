@@ -90,11 +90,11 @@
     </div>
     <div class="hero-steam" aria-hidden="true">
       <svg viewBox="0 0 200 260" class="steam-svg">
-        <path class="steam-path steam-1" d="M60 240 C 40 200, 80 180, 60 140 C 40 100, 80 80, 60 40" fill="none"
+        <path class="steam-path steam-1" d="M60 240 Q 90 160 60 40" fill="none"
           stroke="currentColor" stroke-width="3" stroke-linecap="round" />
-        <path class="steam-path steam-2" d="M110 240 C 130 200, 90 180, 110 140 C 130 100, 90 80, 110 40" fill="none"
+        <path class="steam-path steam-2" d="M110 240 Q 80 160 110 40" fill="none"
           stroke="currentColor" stroke-width="3" stroke-linecap="round" />
-        <path class="steam-path steam-3" d="M150 240 C 170 205, 140 185, 155 150" fill="none" stroke="currentColor"
+        <path class="steam-path steam-3" d="M150 240 Q 170 195 150 150" fill="none" stroke="currentColor"
           stroke-width="2.5" stroke-linecap="round" />
       </svg>
     </div>
@@ -170,6 +170,7 @@
   <footer class="site-footer">
     <p><span class="logo-en">ARÔM</span> · <span class="logo-km">អារម្មណ៍</span></p>
     <p class="footer-note" data-i18n="footer_note">Phnom Penh, Cambodia — brewed daily.</p>
+    <a href="https://monyudomthorn.netlify.app/" target="_blank" class="footer-follow">More About Me</a>
   </footer>
 
   <!-- ===== Cart Drawer ===== -->
@@ -204,8 +205,6 @@
   <!-- Toast -->
   <div class="toast" id="toast"></div>
 
-  <!-- Auth modal shell. The login / signup / forgot-password forms live in the
-     auth/ folder and are fetched into #authFormContainer by script.js. -->
   <div class="modal-overlay" id="authOverlay"></div>
   <div class="auth-modal" id="authModal" role="dialog" aria-modal="true" aria-hidden="true">
     <button class="drawer-close modal-close" id="authClose" aria-label="Close">

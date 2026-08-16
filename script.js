@@ -16,6 +16,7 @@ const translations = {
     menu_title: "The Menu",
     menu_title_fav: "Your Favorites",
     footer_note: "Phnom Penh, Cambodia — brewed daily.",
+    footer_follow:"More About Me",
     category_all: "All",
     category_coffee: "Coffee",
     category_tea: "Tea",
@@ -115,6 +116,7 @@ const translations = {
     menu_title: "ម៉ីនុយ",
     menu_title_fav: "ចំណូលចិត្តរបស់អ្នក",
     footer_note: "ភ្នំពេញ កម្ពុជា — ដុតរាល់ថ្ងៃ។",
+    footer_follow:"បន្ថែមអំពីខ្ញុំ",
     category_all: "ទាំងអស់",
     category_coffee: "កាហ្វេ",
     category_tea: "តែ",
@@ -191,7 +193,7 @@ const translations = {
     invoice_vat: "អាករលើតម្លៃបន្ថែម (១០%)",
     invoice_total: "តម្លៃសរុបត្រូវបង់",
     invoice_thank_you: "សូមអរគុណសម្រាប់ការកម្មង់!",
-    invoice_footer_note: "អារ៉ូម៉ · ភ្នំពេញ កម្ពុជា ",
+    invoice_footer_note: "អារម្មណ៍ · ភ្នំពេញ កម្ពុជា ",
     invoice_print: "បោះពុម្ព",
     invoice_confirm: "បញ្ជាក់ និងកម្មង់",
     invoice_close: "បិទ",
@@ -220,14 +222,14 @@ const categories = ["all", "coffee", "tea", "juice", "smoothie", "food"];
 const products = [
   { id: "p1", icon: "cup", price: 2.50, category: "coffee",
     image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=85",
-    name: { en: "Khmer Iced Coffee", km: "កាហ្វេទឹកកកខ្មែរ" },
+    name: { en: "Black Iced Coffee", km: "កាហ្វេខ្មៅទឹកកក" },
     desc: { en: "Dark-roast robusta over condensed milk and ice.", km: "កាហ្វេគៀមខ្មៅជាមួយទឹកដោះគោខាប់ និងទឹកកក។" } },
   { id: "p2", icon: "leaf", price: 1.80, category: "tea",
     image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=800&q=85",
     name: { en: "Jasmine Tea", km: "តែម្លិះ" },
     desc: { en: "Whole-leaf jasmine, steeped light and floral.", km: "ស្លឹកតែម្លិះទាំងមូល ជក់ស្រាល ក្លិនផ្កា។" } },
   { id: "p3", icon: "cup", price: 3.20, category: "coffee",
-    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=800&q=85",
     name: { en: "Palm Sugar Latte", km: "ឡាតតេស្ករត្នោត" },
     desc: { en: "Espresso, steamed milk, and Kampot palm sugar.", km: "កាហ្វេអេស្ប្រេស្សូ ទឹកដោះគោក្តៅ និងស្ករត្នោតកំពត។" } },
   { id: "p4", icon: "lotus", price: 2.00, category: "tea",
@@ -236,7 +238,7 @@ const products = [
     desc: { en: "Earthy lotus root simmered with rock sugar.", km: "ឫសឈូកដាំយឺតៗជាមួយស្ករសុីជ្រៅ។" } },
   { id: "p5", icon: "beans", price: 6.50, category: "coffee",
     image: "https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=800&q=85",
-    name: { en: "Robusta Beans, 250g", km: "គ្រាប់កាហ្វេរូបូស្តា ២៥០ក្រាម" },
+    name: { en: "Mondulkiri Beans, 250g", km: "គ្រាប់កាហ្វេមណ្ឌលគិរី ២៥០ក្រាម" },
     desc: { en: "Whole beans from Mondulkiri highlands.", km: "គ្រាប់កាហ្វេទាំងមូលពីតំបន់មណ្ឌលគិរី។" } },
   { id: "p6", icon: "teapot", price: 2.80, category: "tea",
     image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=800&q=85",
@@ -247,16 +249,16 @@ const products = [
     name: { en: "Ginger Honey Brew", km: "ភេសជ្ជៈខ្ញីទឹកឃ្មុំ" },
     desc: { en: "Fresh ginger, honey, and a squeeze of lime.", km: "ខ្ញីស្រស់ ទឹកឃ្មុំ និងទឹកក្រូចថ្នមបន្តិច។" } },
   { id: "p8", icon: "leaf", price: 2.90, category: "tea",
-    image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1697206663454-6537a6bebd48?auto=format&fit=crop&w=800&q=85",
     name: { en: "Cardamom Chai", km: "តែក្រវាញ់" },
     desc: { en: "Black tea spiced with cardamom and cinnamon.", km: "តែខ្មៅលាយគ្រឿងទេសក្រវាញ់ និងទុរេស៊ីនណាមុន។" } },
 
   { id: "p9", icon: "glass", price: 1.50, category: "juice",
-    image: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=800&q=85",
+    image: "https://i.pinimg.com/1200x/0e/5b/84/0e5b849121244b1c2045aa081431361c.jpg",
     name: { en: "Fresh Sugarcane Juice", km: "ទឹកអំពៅ" },
     desc: { en: "Cold-pressed sugarcane with a hint of lime.", km: "ទឹកអំពៅសង្កត់ស្រស់ លាយក្រូចថ្នមបន្តិច។" } },
   { id: "p10", icon: "glass", price: 2.00, category: "juice",
-    image: "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=800&q=85",
+    image: "https://i.pinimg.com/1200x/4c/c4/9d/4cc49d102bf1d2a2d3590d5dea3ef19f.jpg",
     name: { en: "Pineapple Juice", km: "ទឹកម្នាស់" },
     desc: { en: "Sweet-tart pineapple, pressed fresh daily.", km: "ទឹកម្នាស់ជូរផ្អែម សង្កត់ស្រស់រាល់ថ្ងៃ។" } },
   { id: "p11", icon: "glass", price: 1.80, category: "juice",
@@ -265,15 +267,15 @@ const products = [
     desc: { en: "Chilled watermelon, nothing added.", km: "ទឹកឪឡឹកត្រជាក់ គ្មានលាយបន្ថែម។" } },
 
   { id: "p12", icon: "blender", price: 2.60, category: "smoothie",
-    image: "https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=800&q=85",
+    image: "https://i.pinimg.com/736x/35/69/cd/3569cd542d4880ccebd8400762d591c9.jpg",
     name: { en: "Mango Smoothie", km: "ស្មូតធីស្វាយ" },
     desc: { en: "Ripe mango blended thick and cold.", km: "ស្វាយទុំលាយក្រាស់ត្រជាក់។" } },
   { id: "p13", icon: "blender", price: 2.80, category: "smoothie",
-    image: "https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1662130187270-a4d52c700eb6?auto=format&fit=crop&w=800&q=85",
     name: { en: "Avocado Smoothie", km: "ស្មូតធីអាវ៉ូកា" },
     desc: { en: "Creamy avocado with condensed milk.", km: "អាវ៉ូកាក្រែមជាមួយទឹកដោះគោខាប់។" } },
   { id: "p14", icon: "blender", price: 2.70, category: "smoothie",
-    image: "https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1570696516188-ade861b84a49?auto=format&fit=crop&w=800&q=85",
     name: { en: "Dragon Fruit Smoothie", km: "ស្មូតធីស្រកានាគ" },
     desc: { en: "Bright dragon fruit blended with yogurt.", km: "ស្រកានាគលាយជាមួយទឹកដោះគោជូរ។" } },
 
@@ -282,7 +284,7 @@ const products = [
     name: { en: "Banana Fritters", km: "នំចេកបំពង" },
     desc: { en: "Golden fried banana, crisp outside, soft inside.", km: "នំចេកបំពងក្រូបខាងក្រៅ ទន់ខាងក្នុង។" } },
   { id: "p16", icon: "sandwich", price: 3.50, category: "food",
-    image: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1622941367239-8acd68fa946d?auto=format&fit=crop&w=800&q=85",
     name: { en: "Kroeung Toast", km: "នំបុ័ងគ្រឿង" },
     desc: { en: "Sourdough toast with lemongrass kroeung and egg.", km: "នំបុ័ងអាំងលាយគ្រឿងស្លឹកគ្រៃ និងស៊ុត។" } },
   { id: "p17", icon: "sandwich", price: 2.20, category: "food",
@@ -291,102 +293,102 @@ const products = [
     desc: { en: "Warm baguette, grilled pork, pickled veg.", km: "នំបុ័ងក្តៅជាមួយសាច់ជ្រូកអាំង និងបន្លែជម្រក់។" } },
 
   { id: "p18", icon: "cup", price: 2.30, category: "coffee",
-    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=85",
-    name: { en: "Black Iced Coffee", km: "កាហ្វេទឹកកកខ្មៅ" },
+    image: "https://images.unsplash.com/photo-1558122104-355edad709f6?auto=format&fit=crop&w=800&q=85",
+    name: { en: "Coffee with milk", km: "កាហ្វេទឹកដោះគោ" },
     desc: { en: "Bold robusta over ice, no milk.", km: "កាហ្វេគៀមខ្មៅដាក់ទឹកកក គ្មានទឹកដោះគោ។" } },
   { id: "p19", icon: "cup", price: 3.00, category: "coffee",
-    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1596098823457-74e360fcd023?auto=format&fit=crop&w=800&q=85",
     name: { en: "Coconut Coffee", km: "កាហ្វេដូង" },
     desc: { en: "Espresso blended with coconut cream.", km: "កាហ្វេអេស្ប្រេស្សូលាយជាមួយក្រែមដូង។" } },
   { id: "p20", icon: "cup", price: 2.00, category: "coffee",
-    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1506372023823-741c83b836fe?auto=format&fit=crop&w=800&q=85",
     name: { en: "Espresso Shot", km: "អេស្ប្រេស្សូ" },
     desc: { en: "A short, concentrated shot of espresso.", km: "កាហ្វេអេស្ប្រេស្សូមួយសាំងខាប់ខ្លី។" } },
   { id: "p21", icon: "cup", price: 2.90, category: "coffee",
-    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1564327367919-cb377ea6a88f?auto=format&fit=crop&w=800&q=85",
     name: { en: "Cappuccino", km: "កាពូជីណូ" },
     desc: { en: "Espresso topped with steamed milk foam.", km: "កាហ្វេអេស្ប្រេស្សូគ្របដោយពពុះទឹកដោះគោក្តៅ។" } },
   { id: "p22", icon: "cup", price: 3.10, category: "coffee",
-    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=85",
     name: { en: "Caramel Macchiato", km: "ម៉ាគីយ៉ាតូការាមែល" },
     desc: { en: "Espresso marked with milk foam and caramel drizzle.", km: "កាហ្វេអេស្ប្រេស្សូជាមួយពពុះទឹកដោះគោ និងទឹកការាមែល។" } },
   { id: "p23", icon: "glass", price: 2.70, category: "coffee",
-    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=800&q=85",
     name: { en: "Cold Brew", km: "កាហ្វេជ្រលក់ត្រជាក់" },
     desc: { en: "Steeped 18 hours, smooth and low-acid.", km: "ជ្រលក់អស់រយៈពេល១៨ម៉ោង រសជាតិម៉ត់ចត់។" } },
   { id: "p24", icon: "cup", price: 3.00, category: "coffee",
-    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1542372147193-a7aca54189cd?auto=format&fit=crop&w=800&q=85",
     name: { en: "Hazelnut Latte", km: "ឡាតតេហាហ្សែលណាត" },
     desc: { en: "Espresso and milk with roasted hazelnut syrup.", km: "កាហ្វេអេស្ប្រេស្សូនិងទឹកដោះគោលាយទឹកអាំងហាហ្សែលណាត។" } },
   { id: "p25", icon: "cup", price: 2.60, category: "coffee",
-    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=85",
-    name: { en: "Vietnamese Drip Coffee", km: "កាហ្វេសំណក់វៀតណាម" },
+    image: "https://images.unsplash.com/photo-1593443320739-77f74939d0da?auto=format&fit=crop&w=800&q=85",
+    name: { en: "Vietnamese Drip Coffee", km: "កាហ្វេវៀតណាម" },
     desc: { en: "Slow-dripped through a phin filter over condensed milk.", km: "សំណក់យឺតៗតាមចំរោះលើទឹកដោះគោខាប់។" } },
   { id: "p26", icon: "cup", price: 3.00, category: "coffee",
-    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1507133750040-4a8f57021571?auto=format&fit=crop&w=800&q=85",
     name: { en: "Mocha", km: "កាហ្វេម៉ូកា" },
     desc: { en: "Espresso, steamed milk, and dark chocolate.", km: "កាហ្វេអេស្ប្រេស្សូ ទឹកដោះគោក្តៅ និងសូកូឡាខ្មៅ។" } },
 
   { id: "p27", icon: "leaf", price: 1.90, category: "tea",
-    image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1525803377221-4f6ccdaa5133?auto=format&fit=crop&w=800&q=85",
     name: { en: "Iced Black Tea", km: "តែខ្មៅទឹកកក" },
     desc: { en: "Strong black tea over ice, lightly sweetened.", km: "តែខ្មៅខាប់ដាក់ទឹកកក ផ្អែមស្រាល។" } },
   { id: "p28", icon: "leaf", price: 2.10, category: "tea",
-    image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1575417634984-8e608b88a04b?auto=format&fit=crop&w=800&q=85",
     name: { en: "Peach Tea", km: "តែផែស" },
     desc: { en: "Black tea infused with sweet peach.", km: "តែខ្មៅលាយផែសផ្អែម។" } },
   { id: "p29", icon: "leaf", price: 1.80, category: "tea",
-    image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1610970881699-44a5587cabec?auto=format&fit=crop&w=800&q=85",
     name: { en: "Green Tea", km: "តែបៃតង" },
     desc: { en: "Steamed green tea, light and grassy.", km: "តែបៃតងចំហុយ រសជាតិស្រាលៗ។" } },
   { id: "p30", icon: "leaf", price: 2.20, category: "tea",
-    image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1729656606803-624227313880?auto=format&fit=crop&w=800&q=85",
     name: { en: "Oolong Tea", km: "តែអូឡុង" },
     desc: { en: "Semi-oxidized tea with a smooth, floral finish.", km: "តែកម្រិតបំបែកកន្លះ រសជាតិម៉ត់ចត់ក្លិនផ្កា។" } },
   { id: "p31", icon: "teapot", price: 2.60, category: "tea",
-    image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=800&q=85",
-    name: { en: "Thai Milk Tea", km: "តែទឹកដោះគោថៃ" },
+    image: "https://images.unsplash.com/photo-1592284441621-581ebd2e677d?auto=format&fit=crop&w=800&q=85",
+    name: { en: "Milk Tea", km: "តែទឹកដោះគោ" },
     desc: { en: "Spiced black tea with condensed and evaporated milk.", km: "តែខ្មៅលាយគ្រឿងទេស ជាមួយទឹកដោះគោខាប់ និងទឹកដោះគោមួន។" } },
   { id: "p32", icon: "leaf", price: 2.00, category: "tea",
-    image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?auto=format&fit=crop&w=800&q=85",
     name: { en: "Honey Lemon Tea", km: "តែក្រូចឆ្មាទឹកឃ្មុំ" },
     desc: { en: "Black tea with fresh lemon and honey.", km: "តែខ្មៅជាមួយក្រូចឆ្មារស្រស់ និងទឹកឃ្មុំ។" } },
   { id: "p33", icon: "lotus", price: 2.30, category: "tea",
-    image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1595434091143-b375ced5fe5c?auto=format&fit=crop&w=800&q=85",
     name: { en: "Rose Tea", km: "តែផ្កាកុលាប" },
     desc: { en: "Black tea steeped with dried rose petals.", km: "តែខ្មៅជ្រលក់ជាមួយផ្កាកុលាបស្ងួត។" } },
 
   { id: "p34", icon: "glass", price: 1.60, category: "juice",
-    image: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=800&q=85",
     name: { en: "Orange Juice", km: "ទឹកក្រូច" },
     desc: { en: "Fresh-squeezed orange, no added sugar.", km: "ទឹកក្រូចច្របាច់ស្រស់ គ្មានស្ករបន្ថែម។" } },
   { id: "p35", icon: "glass", price: 1.50, category: "juice",
-    image: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1607690506833-498e04ab3ffa?auto=format&fit=crop&w=800&q=85",
     name: { en: "Lime Juice", km: "ទឹកក្រូចឆ្មារ" },
     desc: { en: "Tart lime juice over ice.", km: "ទឹកក្រូចឆ្មារជូរដាក់ទឹកកក។" } },
   { id: "p36", icon: "glass", price: 1.90, category: "juice",
-    image: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1534353473418-4cfa6c56fd38?auto=format&fit=crop&w=800&q=85",
     name: { en: "Carrot Juice", km: "ទឹកការ៉ុត" },
     desc: { en: "Cold-pressed carrot, naturally sweet.", km: "ទឹកការ៉ុតសង្កត់ស្រស់ ផ្អែមធម្មជាតិ។" } },
   { id: "p37", icon: "glass", price: 2.00, category: "juice",
-    image: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1622597467821-df79dcb4f94d?auto=format&fit=crop&w=800&q=85",
     name: { en: "Green Apple Juice", km: "ទឹកផ្លែប៉ោមបៃតង" },
     desc: { en: "Crisp green apple, pressed fresh.", km: "ទឹកផ្លែប៉ោមបៃតងសង្កត់ស្រស់។" } },
   { id: "p38", icon: "glass", price: 2.20, category: "juice",
-    image: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1525385133512-2f3bdd039054?auto=format&fit=crop&w=800&q=85",
     name: { en: "Passion Fruit Juice", km: "ទឹកម៉ារ៉ាគូយ៉ា" },
     desc: { en: "Tangy passion fruit over ice.", km: "ទឹកម៉ារ៉ាគូយ៉ាជូរផ្អែមដាក់ទឹកកក។" } },
   { id: "p39", icon: "glass", price: 1.70, category: "juice",
-    image: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1497534446932-c925b458314e?auto=format&fit=crop&w=800&q=85",
     name: { en: "Coconut Water", km: "ទឹកដូង" },
     desc: { en: "Straight from the young coconut.", km: "ទឹកដូងស្រស់ចេញពីផ្លែដូងក្មេង។" } },
   { id: "p40", icon: "glass", price: 1.80, category: "juice",
-    image: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1496318447583-f524534e9ce1?auto=format&fit=crop&w=800&q=85",
     name: { en: "Cucumber Lime Juice", km: "ទឹកត្រសក់ក្រូចឆ្មារ" },
     desc: { en: "Cooling cucumber with a squeeze of lime.", km: "ទឹកត្រសក់ត្រជាក់លាយក្រូចឆ្មារបន្តិច។" } },
 
   { id: "p41", icon: "blender", price: 2.60, category: "smoothie",
-    image: "https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1589733955941-5eeaf752f6dd?auto=format&fit=crop&w=800&q=85",
     name: { en: "Strawberry Smoothie", km: "ស្មូតធីស្ត្របឺរី" },
     desc: { en: "Blended strawberry with yogurt.", km: "ស្ត្របឺរីលាយជាមួយទឹកដោះគោជូរ។" } },
   { id: "p42", icon: "blender", price: 2.40, category: "smoothie",
@@ -394,11 +396,11 @@ const products = [
     name: { en: "Banana Smoothie", km: "ស្មូតធីចេក" },
     desc: { en: "Ripe banana blended thick with milk.", km: "ចេកទុំលាយក្រាស់ជាមួយទឹកដោះគោ។" } },
   { id: "p43", icon: "blender", price: 2.90, category: "smoothie",
-    image: "https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1600718374662-0483d2b9da44?auto=format&fit=crop&w=800&q=85",
     name: { en: "Mixed Berry Smoothie", km: "ស្មូតធីផ្លែបឺរីលាយ" },
     desc: { en: "Strawberry, blueberry, and raspberry blended.", km: "ស្ត្របឺរី ប្លូបឺរី និងរាស្បឺរីលាយចូលគ្នា។" } },
   { id: "p44", icon: "blender", price: 2.60, category: "smoothie",
-    image: "https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1577594412764-f8fa57d4e5b4?auto=format&fit=crop&w=800&q=85",
     name: { en: "Taro Smoothie", km: "ស្មូតធីត្រាវ" },
     desc: { en: "Creamy taro root blended with milk.", km: "ត្រាវក្រែមលាយជាមួយទឹកដោះគោ។" } },
   { id: "p45", icon: "blender", price: 2.50, category: "smoothie",
@@ -407,25 +409,33 @@ const products = [
     desc: { en: "Young coconut meat blended with coconut water.", km: "សាច់ដូងក្មេងលាយជាមួយទឹកដូង។" } },
 
   { id: "p46", icon: "sandwich", price: 2.00, category: "food",
-    image: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?auto=format&fit=crop&w=800&q=85",
     name: { en: "Fresh Spring Rolls", km: "ណែមស្រស់" },
     desc: { en: "Rice paper rolls with herbs and shrimp.", km: "ណែមប័ន្សិលចំណិលបន្លែ និងបង្គា។" } },
   { id: "p47", icon: "sandwich", price: 2.80, category: "food",
-    image: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1515823662972-da6a2e4d3002?auto=format&fit=crop&w=800&q=85",
     name: { en: "Grilled Chicken Skewers", km: "សាច់មាន់អាំងញញួរ" },
     desc: { en: "Marinated chicken grilled over charcoal.", km: "សាច់មាន់ជ្រលក់គ្រឿងអាំងលើអង្រួន។" } },
   { id: "p48", icon: "sandwich", price: 1.90, category: "food",
-    image: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1613929231151-d7571591259e?auto=format&fit=crop&w=800&q=85",
     name: { en: "Chicken Curry Puff", km: "នំខារីមាន់" },
     desc: { en: "Flaky pastry filled with curried chicken.", km: "នំដុតបំពងបំពេញដោយសាច់មាន់ខារី។" } },
   { id: "p49", icon: "sandwich", price: 2.50, category: "food",
     image: "https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=800&q=85",
-    name: { en: "Fruit Plate", km: "ចានផ្លែឈើ" },
+    name: { en: "Fruit Plate", km: "ផ្លែឈើ" },
     desc: { en: "A plate of seasonal Cambodian fruit.", km: "ចានផ្លែឈើតាមរដូវរបស់កម្ពុជា។" } },
   { id: "p50", icon: "sandwich", price: 2.10, category: "food",
     image: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=800&q=85",
     name: { en: "Butter Croissant", km: "ក្រូវេសង់ប៊ឺ" },
     desc: { en: "Flaky, buttery, baked fresh daily.", km: "នំក្រូវេសង់ប៊ឺដុតស្រស់រាល់ថ្ងៃ។" } },
+    { id: "p51", icon: "sandwich", price: 3.50, category: "food",
+    image: "https://i.pinimg.com/736x/6f/b1/fe/6fb1fee1c272b966759750424bcab06c.jpg",
+    name: { en: "Pork and Rice", km: "បាយសាច់ជ្រូក" },
+    desc: { en: "Marinated grilled pork over broken rice with pickled cucumber.", km: "សាច់ជ្រូកអាំងលើបាយ ជាមួយត្រសក់ជ្រក់។" } },
+  { id: "p52", icon: "glass", price: 2.20, category: "tea",
+    image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=800&q=85",
+    name: { en: "Iced Lemon Tea", km: "តែក្រូចឆ្មាទឹកកក" },
+    desc: { en: "Refreshing black tea with fresh squeezed lemon and ice.", km: "តែខ្មៅស្រស់ស្រាយជាមួយក្រូចឆ្មារច្របាច់ស្រស់ និងទឹកកក។" } },
 ];
 
 /* ===================== Team data ===================== */
@@ -488,14 +498,13 @@ const accountBtnLabel = document.getElementById("accountBtnLabel");
 const accountDropdown = document.getElementById("accountDropdown");
 const logoutBtn = document.getElementById("logoutBtn");
 
-// The modal shell (overlay, box, tabs) is static in index.html.
-// The actual login/signup/forgot forms are fetched on demand from the auth/ folder — see loadAuthForm() below.
+
 const authOverlay = document.getElementById("authOverlay");
 const authModal = document.getElementById("authModal");
 const authClose = document.getElementById("authClose");
 const authTabs = document.getElementById("authTabs");
 const authFormContainer = document.getElementById("authFormContainer");
-let authFormCache = {}; // view -> fetched HTML, so we don't re-fetch on every tab switch
+let authFormCache = {}; // view -> fetched HTML
 
 const contactForm = document.getElementById("contactForm");
 const contactError = document.getElementById("contactError");
@@ -534,15 +543,12 @@ const invoiceTotalEl = document.getElementById("invoiceTotal");
 const invoicePrintBtn = document.getElementById("invoicePrintBtn");
 const invoiceConfirmBtn = document.getElementById("invoiceConfirmBtn");
 
-/* ===================== i18n helpers ===================== */
+/* ===================== i18n ===================== */
 function t(key, ...args) {
   const entry = translations[state.lang][key];
   return typeof entry === "function" ? entry(...args) : entry;
 }
 
-// Same as t(), but reads from the invoice's own language toggle instead of
-// the site-wide language, so the invoice can be viewed in EN or KM
-// independently of whatever language the rest of the page is in.
 function ti(key, ...args) {
   const entry = translations[state.invoiceLang][key];
   return typeof entry === "function" ? entry(...args) : entry;
@@ -647,7 +653,7 @@ function renderDrawer() {
         </div>
         <div class="drawer-item-info">
           <p class="drawer-item-name">${name}</p>
-          <p class="drawer-item-price">${formatPrice(p.price)} × ${qty}</p>
+          <p class="drawer-item-price">${formatPrice(p.price)} x ${qty}</p>
           <p class="drawer-item-subtotal">${formatPrice(p.price * qty)}</p>
         </div>
         <div class="qty-controls">
