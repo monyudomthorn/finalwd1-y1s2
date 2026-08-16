@@ -472,7 +472,7 @@ let state = {
   invoice: null,      // snapshot generated at checkout: { number, date, items }
 };
 
-// Demo-only in-memory "database" of registered users. Resets on reload.
+
 let users = [];
 
 /* ===================== DOM refs ===================== */
@@ -657,7 +657,7 @@ function renderDrawer() {
           <p class="drawer-item-subtotal">${formatPrice(p.price * qty)}</p>
         </div>
         <div class="qty-controls">
-          <button class="qty-btn" data-action="dec">−</button>
+          <button class="qty-btn" data-action="dec">-</button>
           <span class="qty-val">${qty}</span>
           <button class="qty-btn" data-action="inc">+</button>
           <button class="remove-btn" data-action="remove" aria-label="Remove item">
@@ -815,7 +815,7 @@ function closeDrawer() {
   cartDrawer.setAttribute("aria-hidden", "true");
 }
 
-/* ----- Auth modal: fetch the right form from auth/ on demand ----- */
+/* ----- Auth modal: fetch the right form from auth/ ----- */
 const authFileMap = {
   login: "auth/login.html",
   signup: "auth/signup.html",
@@ -1067,7 +1067,7 @@ function printInvoice() {
 
   const printWindow = window.open("", "_blank", "width=650,height=800");
   if (!printWindow) {
-    // Pop-up blocked — fall back to printing the current page.
+
     window.print();
     return;
   }
@@ -1075,38 +1075,36 @@ function printInvoice() {
   const dir = state.invoiceLang === "km" ? "km" : "en";
   const title = state.invoice ? state.invoice.number : "Invoice";
 
-  // Everything below is inlined in a single <style> tag (no external
-  // stylesheet or font link) so there's nothing to fetch and nothing to wait
-  // on — the window can be printed immediately after it's written.
-  printWindow.document.write(`<!DOCTYPE html>
-<html lang="${dir}">
-<head>
-<meta charset="UTF-8">
-<title>${title} — ARÔM</title>
-<style>
-  body { margin: 0; padding: 30px; font-family: Georgia, "Times New Roman", serif; color: #2a1e16; }
-  .invoice-brand { text-align: center; margin-bottom: 6px; }
-  .invoice-brand .logo-en { font-size: 1.3rem; font-weight: 700; }
-  .invoice-brand .logo-km { color: #6b5c4c; margin-left: 6px; }
-  .invoice-tagline { margin: 2px 0 0; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; color: #6b5c4c; }
-  .invoice-heading { text-align: center; font-size: 1.15rem; font-weight: 700; color: #b5563c; margin: 14px 0 18px; padding-top: 14px; border-top: 1px dashed #ddd; }
-  .invoice-meta { font-size: .86rem; margin-bottom: 18px; }
-  .invoice-meta-row { display: flex; justify-content: space-between; gap: 12px; color: #6b5c4c; padding: 2px 0; }
-  .invoice-meta-row span:last-child { color: #2a1e16; font-weight: 700; text-align: right; }
-  .invoice-table { width: 100%; border-collapse: collapse; font-size: .86rem; margin-bottom: 16px; }
-  .invoice-table th { text-align: left; font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: #6b5c4c; border-bottom: 1px solid #ccc; padding: 0 4px 8px; }
-  .invoice-table th:not(:first-child), .invoice-table td:not(:first-child) { text-align: right; }
-  .invoice-table td { padding: 8px 4px; border-bottom: 1px solid #eee; }
-  .invoice-summary { margin-left: auto; width: 60%; min-width: 200px; font-size: .88rem; margin-bottom: 18px; }
-  .invoice-summary-row { display: flex; justify-content: space-between; color: #6b5c4c; padding: 2px 0; }
-  .invoice-summary-total { border-top: 1px solid #ccc; margin-top: 4px; padding-top: 8px; font-size: 1.1rem; font-weight: 700; color: #b5563c; }
-  .invoice-thanks { text-align: center; font-size: 1rem; font-weight: 700; margin: 0 0 4px; }
-  .invoice-footer-note { text-align: center; font-size: .74rem; color: #6b5c4c; margin: 0; }
-  @page { margin: 16mm; }
-</style>
-</head>
-<body>${invoiceSheetEl.innerHTML}</body>
-</html>`);
+  printWindow.document.write(`
+    <!DOCTYPE html>
+    <html lang="${dir}">
+    <head>
+    <meta charset="UTF-8">
+    <title>${title} — ARÔM</title>
+    <style>
+      body { margin: 0; padding: 30px; font-family: Georgia, "Times New Roman", serif; color: #2a1e16; }
+      .invoice-brand { text-align: center; margin-bottom: 6px; }
+      .invoice-brand .logo-en { font-size: 1.3rem; font-weight: 700; }
+      .invoice-brand .logo-km { color: #6b5c4c; margin-left: 6px; }
+      .invoice-tagline { margin: 2px 0 0; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; color: #6b5c4c; }
+      .invoice-heading { text-align: center; font-size: 1.15rem; font-weight: 700; color: #b5563c; margin: 14px 0 18px; padding-top: 14px; border-top: 1px dashed #ddd; }
+      .invoice-meta { font-size: .86rem; margin-bottom: 18px; }
+      .invoice-meta-row { display: flex; justify-content: space-between; gap: 12px; color: #6b5c4c; padding: 2px 0; }
+      .invoice-meta-row span:last-child { color: #2a1e16; font-weight: 700; text-align: right; }
+      .invoice-table { width: 100%; border-collapse: collapse; font-size: .86rem; margin-bottom: 16px; }
+      .invoice-table th { text-align: left; font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: #6b5c4c; border-bottom: 1px solid #ccc; padding: 0 4px 8px; }
+      .invoice-table th:not(:first-child), .invoice-table td:not(:first-child) { text-align: right; }
+      .invoice-table td { padding: 8px 4px; border-bottom: 1px solid #eee; }
+      .invoice-summary { margin-left: auto; width: 60%; min-width: 200px; font-size: .88rem; margin-bottom: 18px; }
+      .invoice-summary-row { display: flex; justify-content: space-between; color: #6b5c4c; padding: 2px 0; }
+      .invoice-summary-total { border-top: 1px solid #ccc; margin-top: 4px; padding-top: 8px; font-size: 1.1rem; font-weight: 700; color: #b5563c; }
+      .invoice-thanks { text-align: center; font-size: 1rem; font-weight: 700; margin: 0 0 4px; }
+      .invoice-footer-note { text-align: center; font-size: .74rem; color: #6b5c4c; margin: 0; }
+      @page { margin: 16mm; }
+    </style>
+    </head>
+    <body>${invoiceSheetEl.innerHTML}</body>
+    </html>`);
   printWindow.document.close();
   printWindow.focus();
   printWindow.print();
