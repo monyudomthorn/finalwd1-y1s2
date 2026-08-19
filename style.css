@@ -13,9 +13,9 @@
   --ink-soft: #6b5c4c;
   --line: rgba(42, 30, 22, 0.12);
 
-  --font-display: "Fraunces", serif;
+  --font-display: "Noto Serif Khmer", "Bokor", serif;
   --font-body: "Work Sans", sans-serif;
-  --font-km: "Noto Serif Khmer","Bokor",  serif;
+  --font-km: "Noto Serif Khmer", "Bokor",  serif;
 
   --radius: 14px;
   --shadow: 0 12px 30px -14px rgba(36, 24, 17, 0.35);
@@ -33,7 +33,7 @@ body {
   margin: 0;
   background: var(--cream);
   color: var(--ink);
-  font-family: var(--font-body);
+  font-family: var(--font-display);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -80,6 +80,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: nowrap;
   padding: 14px 28px;
   gap: 20px;
 }
@@ -164,7 +165,9 @@ a {
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 5px;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .secondary-nav {
@@ -196,7 +199,7 @@ a {
   background: #fff;
   border-radius: 999px;
   padding: 8px 14px;
-  font-size: 0.85rem;
+  font-size: 0.80rem;
   font-weight: 600;
   color: var(--espresso);
   transition: border-color .18s;
@@ -1191,18 +1194,18 @@ a {
 
 .auth-tabs {
   display: flex;
-  gap: 6px;
+  gap: 7px;
   background: var(--cream-2);
   padding: 5px;
   border-radius: 999px;
-  margin: 6px 0 22px;
+  margin: 4px 0 22px;
 }
 
 .auth-tab {
   flex: 1;
   border: none;
   background: transparent;
-  padding: 9px 0;
+  padding: 8px 0;
   border-radius: 999px;
   font-size: 0.85rem;
   font-weight: 600;
